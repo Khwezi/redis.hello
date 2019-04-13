@@ -7,5 +7,7 @@
         public string InstanceName { get; set; }
 
         public string RedisKey { get; set; }
+
+        public int Port { get; set; }
     }
 }

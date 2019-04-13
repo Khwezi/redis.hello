@@ -64,8 +64,13 @@ namespace Redis.Hello
                 .Configure<RedisConfiguration>(configuration.GetSection(nameof(RedisConfiguration)))
                 .AddDistributedRedisCache(c =>
                 {
-                    c.InstanceName = configuration.GetSection(nameof(RedisConfiguration)).Get<RedisConfiguration>().InstanceName;
-                    c.Configuration = configuration.GetSection(nameof(RedisConfiguration)).Get<RedisConfiguration>().Host;
+                    c.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions()
+                    {
+                        AbortOnConnectFail = false,
+                        AllowAdmin = true
+                    };
+                    c.ConfigurationOptions.EndPoints.Add(configuration.GetSection(nameof(RedisConfiguration)).Get<RedisConfiguration>().Host,
+                        configuration.GetSection(nameof(RedisConfiguration)).Get<RedisConfiguration>().Port);
                 })
                 .AddScoped<IRedisService, RedisService>();
 

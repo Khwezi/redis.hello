@@ -1,7 +1,8 @@
 {
   "RedisConfiguration": {
-    "Host": "127.0.0.1",
-    "InstanceName": "master",
-    "RedisKey": "Target"
+    "Host": "localhost",
+    "InstanceName": "redis-cache",
+    "RedisKey": "target",
+    "Port": 6379
   }
 }
