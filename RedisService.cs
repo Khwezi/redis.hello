@@ -1,20 +1,21 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Redis.Hello.Configuration;
 using Redis.Hello.Models;
 
 namespace Redis.Hello
 {
     public class RedisService : IRedisService
     {
-        public IDistributedCache Cache { get; set; }
+        public readonly IDistributedCache Cache;
 
-        public Configuration.RedisConfiguration Configuration { get; set; }
+        public readonly RedisConfiguration Configuration;
 
-        public RedisService(IDistributedCache cache, IConfigurationRoot configuration)
+        public RedisService(IDistributedCache cache, IOptions<RedisConfiguration> config)
         {
             Cache = cache;
-            configuration.Bind("redis", Configuration);
+            Configuration = config.Value;
         }
 
         public Person Pull() => JsonConvert.DeserializeObject<Person>(Cache.GetString(Configuration.RedisKey));

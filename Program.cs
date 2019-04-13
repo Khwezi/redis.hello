@@ -1,14 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Configuration.FileExtensions;
 using System;
 using Redis.Hello.Models;
+using System.IO;
+using Redis.Hello.Configuration;
 
 namespace Redis.Hello
 {
     class Program
     {
         static IConfigurationRoot configuration;
-        static IServiceProvider serviceProvider;
+        static IServiceCollection services;
+        static IServiceProvider servicesProvider;
 
         static void Main(string[] args)
         {
@@ -16,7 +22,9 @@ namespace Redis.Hello
 
             Startup();
 
-            var redis = serviceProvider.GetRequiredService<IRedisService>();
+            Console.WriteLine("> online.");
+
+            var redis = servicesProvider.GetService<IRedisService>();
 
             var data = new Person()
             {
@@ -36,7 +44,7 @@ namespace Redis.Hello
 
             Console.ReadLine();
 
-            serviceProvider = null;
+            servicesProvider = null;
             configuration = null;
 
             Console.WriteLine("> stopped.");
@@ -44,21 +52,24 @@ namespace Redis.Hello
 
         private static void Startup()
         {
-            configuration = new ConfigurationBuilder().AddJsonFile("settings.json", true, true).Build();
+            configuration = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddEnvironmentVariables()
+               .AddJsonFile("settings.json", false, true)
+               .Build();
 
-            var redisConfiguration = new Configuration.RedisConfiguration();
-            configuration.Bind("redis", redisConfiguration);
-
-            serviceProvider = new ServiceCollection()
+            services = new ServiceCollection()
                 .AddOptions()
-                .Configure<Configuration.RedisConfiguration>((x) => configuration.GetSection("redis"))
-                .AddDistributedRedisCache(options =>
+                .AddLogging(l => l.AddConsole())
+                .Configure<RedisConfiguration>(configuration.GetSection(nameof(RedisConfiguration)))
+                .AddDistributedRedisCache(c =>
                 {
-                    options.InstanceName = redisConfiguration.InstanceName;
-                    options.Configuration = redisConfiguration.Host;
+                    c.InstanceName = configuration.GetSection(nameof(RedisConfiguration)).Get<RedisConfiguration>().InstanceName;
+                    c.Configuration = configuration.GetSection(nameof(RedisConfiguration)).Get<RedisConfiguration>().Host;
                 })
-                .AddTransient<IRedisService, RedisService>()
-                .BuildServiceProvider();
+                .AddScoped<IRedisService, RedisService>();
+
+            servicesProvider = services.BuildServiceProvider();
         }
     }
 }
