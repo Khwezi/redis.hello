@@ -1,0 +1,11 @@
+C:\Users\Khwezi\source\repos\Redis.Hello\bin\Debug\netcoreapp2.2\Redis.Hello.deps.json
+C:\Users\Khwezi\source\repos\Redis.Hello\bin\Debug\netcoreapp2.2\Redis.Hello.runtimeconfig.json
+C:\Users\Khwezi\source\repos\Redis.Hello\bin\Debug\netcoreapp2.2\Redis.Hello.runtimeconfig.dev.json
+C:\Users\Khwezi\source\repos\Redis.Hello\bin\Debug\netcoreapp2.2\Redis.Hello.dll
+C:\Users\Khwezi\source\repos\Redis.Hello\obj\Debug\netcoreapp2.2\Redis.Hello.csprojAssemblyReference.cache
+C:\Users\Khwezi\source\repos\Redis.Hello\obj\Debug\netcoreapp2.2\Redis.Hello.csproj.CoreCompileInputs.cache
+C:\Users\Khwezi\source\repos\Redis.Hello\obj\Debug\netcoreapp2.2\Redis.Hello.AssemblyInfoInputs.cache
+C:\Users\Khwezi\source\repos\Redis.Hello\obj\Debug\netcoreapp2.2\Redis.Hello.AssemblyInfo.cs
+C:\Users\Khwezi\source\repos\Redis.Hello\bin\Debug\netcoreapp2.2\Redis.Hello.pdb
+C:\Users\Khwezi\source\repos\Redis.Hello\obj\Debug\netcoreapp2.2\Redis.Hello.dll
+C:\Users\Khwezi\source\repos\Redis.Hello\obj\Debug\netcoreapp2.2\Redis.Hello.pdb

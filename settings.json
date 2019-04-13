@@ -1,0 +1,7 @@
+{
+  "redis": {
+    "Host": "127.0.0.1",
+    "InstanceName": "master",
+    "RedisKey":  "Target"
+  }
+}

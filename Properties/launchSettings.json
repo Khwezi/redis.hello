@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Redis.Hello": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
